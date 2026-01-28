@@ -1,0 +1,25 @@
+//
+//  ContentView.swift
+//  Hayez
+//
+//  Created by RENAD MAJED ALSHAHRANY  on 09/08/1447 AH.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Hello, Hayez")
+            //test
+        }
+        .padding()
+    }
+}
+
+#Preview {
+    ContentView()
+}
