@@ -16,7 +16,7 @@ struct CharacterSelectionView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Color(red: 0.86, green: 0.80, blue: 0.72)
+                Color("background")
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct CharacterSelectionView: View {
                                 .resizable()
                                 .scaledToFit() // ✅ يحافظ على كامل الصورة
                                 .frame(width: geo.size.width * 0.92) // ✅ يكبرها
-                                .padding(.top, -30) // ✅ يرفعها
+                                .padding(.top, -77) // ✅ يرفعها
                                 .tag(index)
 
                         }
@@ -37,13 +37,13 @@ struct CharacterSelectionView: View {
                     .frame(height: geo.size.height * 0.78)
     // منطقة الصورة أكبر
                     .padding(.top, geo.size.height * 0.02)     // رفعها لفوق
-                    .offset(y: -geo.size.height * 0.06)        // رفع إضافي
+                    .offset(y: -geo.size.height * 0.09)        // رفع إضافي
                     .overlay(alignment: .bottom) {
                         // ✅ النقاط هنا بالضبط تحت الصورة
                         HStack(spacing: 10) {
                             ForEach(0..<vm.characters.count, id: \.self) { i in
                                 Circle()
-                                    .fill(i == selectedIndex ? Color.white : Color.white.opacity(0.35))
+                                    .fill(i == selectedIndex ? Color.gray : Color.gray.opacity(0.35))
                                     .frame(width: 8, height: 8)
                             }
                         }
