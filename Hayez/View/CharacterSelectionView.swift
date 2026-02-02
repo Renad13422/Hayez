@@ -28,7 +28,7 @@ struct CharacterSelectionView: View {
                                 .resizable()
                                 .scaledToFit() // ✅ يحافظ على كامل الصورة
                                 .frame(width: geo.size.width * 0.92) // ✅ يكبرها
-                                .padding(.top, -77) // ✅ يرفعها
+                                .padding(.top, -29) // ✅ يرفعها
                                 .tag(index)
 
                         }
@@ -89,3 +89,4 @@ struct CharacterSelectionView: View {
     CharacterSelectionView()
         .environmentObject(AppStateViewModel())
 }
+
