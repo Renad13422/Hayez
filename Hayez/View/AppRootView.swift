@@ -4,15 +4,22 @@
 //
 //  Created by RENAD MAJED ALSHAHRANY  on 13/08/1447 AH.
 //
-
 import SwiftUI
 
 struct AppRootView: View {
+    @StateObject private var appState = AppStateViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            if appState.isCharacterChosen {
+                HomeView()
+            } else {
+                CharacterSelectionView()
+            }
+        }
+        .environmentObject(appState)
     }
 }
-
 #Preview {
     AppRootView()
 }

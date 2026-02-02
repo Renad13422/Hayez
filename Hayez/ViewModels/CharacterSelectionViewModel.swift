@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import Combine
+
+
+final class CharacterSelectionViewModel: ObservableObject {
+    @Published var characters: [Character] = [
+        Character(name: "Girl", imageName: "girlCard", gender: .girl),
+        Character(name: "Boy",  imageName: "boyCard",  gender: .boy)
+    ]
+}
