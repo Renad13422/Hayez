@@ -12,15 +12,18 @@ struct Character: Identifiable, Codable, Equatable {
     let name: String
     let imageName: String
     let gender: Gender
+    let workspaceImage: String // ✅ أضف هذا السطر
 
     enum Gender: String, Codable {
         case girl, boy
     }
 
-    init(id: UUID = UUID(), name: String, imageName: String, gender: Gender) {
+    init(id: UUID = UUID(), name: String, imageName: String, gender: Gender, workspaceImage: String) { // ✅ أضف workspaceImage هنا
         self.id = id
         self.name = name
         self.imageName = imageName
         self.gender = gender
+        self.workspaceImage = workspaceImage // ✅ وهنا
     }
 }
+

@@ -2,17 +2,39 @@
 //  ChecklistSheetView.swift
 //  Hayez
 //
-//  Created by RENAD MAJED ALSHAHRANY  on 13/08/1447 AH.
 //
 
 import SwiftUI
 
 struct ChecklistSheetView: View {
+    @EnvironmentObject var appState: AppStateViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geo in
+            ZStack {
+                // ✅ عرض الصورة حسب الشخصية المختارة
+                if let character = appState.selectedCharacter {
+                    Image(character.workspaceImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .ignoresSafeArea()
+                }
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    ChecklistSheetView()
+    let appState = AppStateViewModel()
+    appState.selectedCharacter = Character(
+        name: "Girl",
+        imageName: "girlCard",
+        gender: .girl,
+        workspaceImage: "maingirl"
+    )
+    
+    return ChecklistSheetView()
+        .environmentObject(appState)
 }
