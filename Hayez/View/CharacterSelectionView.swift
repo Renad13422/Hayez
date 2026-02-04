@@ -82,7 +82,7 @@ struct CharacterSelectionView: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToChecklist) {
-                ChecklistSheetView() // ✅ الانتقال للصفحة المطلوبة
+                Mainpage() // ✅ الانتقال للصفحة المطلوبة
                     .environmentObject(appState) // ✅ تمرير الـ appState إذا كانت تحتاجه
             }
             .navigationBarHidden(true) // ✅ إخفاء شريط التنقل (اختياري)
