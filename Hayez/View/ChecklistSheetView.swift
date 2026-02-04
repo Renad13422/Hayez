@@ -1,6 +1,0 @@
-//
-//  ChecklistSheetView.swift
-//  Hayez
-//
-//
-
