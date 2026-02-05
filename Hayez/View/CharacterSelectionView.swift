@@ -8,20 +8,19 @@ struct CharacterSelectionView: View {
     @EnvironmentObject var appState: AppStateViewModel
     @StateObject private var vm = CharacterSelectionViewModel()
     @State private var selectedIndex: Int = 0
-    @State private var navigateToChecklist = false // ✅ متغير الانتقال
+    @State private var navigateToChecklist = false
 
     var body: some View {
-        NavigationStack { // ✅ إضافة NavigationStack
+        NavigationStack {
             GeometryReader { geo in
                 ZStack {
-                    // ✅ صورة الخلفية
+                    // ✅ صورة الخلفية (فيها الزر الأصفر)
                     Image("backCard")
                         .resizable()
                         .scaledToFill()
                         .ignoresSafeArea()
-
+                    
                     VStack(spacing: 0) {
-
                         // ✅ الصورة + النقاط
                         TabView(selection: $selectedIndex) {
                             ForEach(0..<vm.characters.count, id: \.self) { index in
@@ -47,46 +46,47 @@ struct CharacterSelectionView: View {
                                         .frame(width: 8, height: 8)
                                 }
                             }
-                            .padding(.bottom, 0)
+                            .padding(.bottom, 38)
                         }
 
                         Spacer()
-
-                        // ✅ زر Done
-                        HStack {
-                            Spacer()
-                            Button {
-                                let chosen = vm.characters[selectedIndex]
-                                appState.selectCharacter(chosen)
-                                navigateToChecklist = true // ✅ تفعيل الانتقال
-                            } label: {
-                                Text("Done")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .frame(
-                                        width: geo.size.width * 0.1,
-                                        height: 120,
-                                        alignment: .leading
-                                    )
-                                    .padding(.leading, 70)
-                                    .background(
-                                        Capsule()
-                                            .fill(Color(red: 0.21, green: 0.35, blue: 0.49))
-                                    )
-                                    .shadow(radius: 7, y: 3)
-                            }
-                            .padding(.trailing, 26)
-                            .padding(.bottom, 4)
-                        }
                     }
+                    
+                    // 🔘 الزر مع نص "Select"
+                    selectButtonWithText(in: geo.size)
                 }
             }
             .navigationDestination(isPresented: $navigateToChecklist) {
-                Mainpage() // ✅ الانتقال للصفحة المطلوبة
-                    .environmentObject(appState) // ✅ تمرير الـ appState إذا كانت تحتاجه
+                Mainpage()
+                    .environmentObject(appState)
             }
-            .navigationBarHidden(true) // ✅ إخفاء شريط التنقل (اختياري)
+            .navigationBarHidden(true)
         }
+    }
+    
+    // 🔘 الزر مع نص "Select"
+    private func selectButtonWithText(in size: CGSize) -> some View {
+        Button(action: {
+            let chosen = vm.characters[selectedIndex]
+            appState.selectCharacter(chosen)
+            navigateToChecklist = true
+        }) {
+            ZStack {
+                // المستطيل الشفاف (يغطي الزر الأصفر)
+                Rectangle()
+                    .fill(Color.clear)  // 🔧 للتجربة: Color.red.opacity(0.3)
+                    .frame(width: size.width * 0.2, height: size.height * 0.07)
+                
+                // النص "Select" فوق الزر
+                Text("Select")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.black)  // 🔧 غيّر اللون حسب الخلفية
+            }
+        }
+        .position(
+            x: size.width * 0.52,   // 🔧 عدّل الموقع
+            y: size.height * 0.95   // 🔧 عدّل الموقع
+        )
     }
 }
 

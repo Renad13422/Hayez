@@ -26,7 +26,7 @@ struct Mainpage: View {
 
                     let imageName: String = {
                         if isDarkMode {
-                            return isLampOn ? lightImage : darkImage
+                return isLampOn ? lightImage : darkImage
                         } else {
                             return baseImage
                         }
