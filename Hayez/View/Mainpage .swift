@@ -19,114 +19,138 @@ struct Mainpage: View {
             ZStack {
                 if let character = appState.selectedCharacter {
 
-                    // ✅ الصور حسب اختيار الشخصية
+                    // 1. تحديد الصور بناءً على الحالة والشخصية
                     let baseImage = character.workspaceImage
                     let darkImage = (character.gender == .girl) ? "maingirldark" : "mainboydark"
                     let lightImage = (character.gender == .girl) ? "lightgirl" : "lightboy"
 
                     let imageName: String = {
                         if isDarkMode {
-                return isLampOn ? lightImage : darkImage
+                            return isLampOn ? lightImage : darkImage
                         } else {
                             return baseImage
                         }
                     }()
 
+                    // 2. الخلفية مع تأثير الزووم
                     Image(imageName)
                         .resizable()
                         .scaledToFill()
+                        .scaleEffect(isDarkMode ? 1.01 : 1.0) // زووم 8% عند تفعيل الدارك مود
+                        .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                         .ignoresSafeArea()
 
+                    // 3. طبقة أزرار الضغط (GeometryReader)
                     GeometryReader { geo in
+                        let w = geo.size.width
+                        let h = geo.size.height
 
-                        // ✅ (1) الشباك: Dark/Normal
+                        // أ- زر الشباك (تبديل الوضع)
                         Button {
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: 0.4)) {
                                 isDarkMode.toggle()
                                 if !isDarkMode { isLampOn = false }
                             }
                         } label: {
                             Rectangle()
-                                .fill(Color.clear)
-                                .frame(width: geo.size.width * 0.18,
-                                       height: geo.size.height * 0.55)
+                                .fill(Color.red.opacity(0.2)) // 👈 غيره لـ .clear بعد ضبط المقاس
+                                .frame(width: w * 0.15, height: h * 0.90)
                         }
-                        .position(x: geo.size.width * 0.06,
-                                  y: geo.size.height * 0.15)
+                        .position(x: w * 0.08, y: h * 0.0)
 
-                        // ✅ (2) المصباح: يشتغل فقط إذا صار ظلام
+                        // ب- زر المصباح (يشتغل فقط في الدارك مود)
                         Button {
-                            guard isDarkMode else { return }
-                            withAnimation(.easeInOut(duration: 0.25)) {
-                                isLampOn.toggle()
+                            if isDarkMode {
+                                withAnimation(.easeInOut(duration: 0.25)) {
+                                    isLampOn.toggle()
+                                }
                             }
                         } label: {
                             Rectangle()
-                                .fill(Color.clear)
-                                .frame(width: geo.size.width * 0.10,
-                                       height: geo.size.height * 0.25)
+                                .fill(Color.blue.opacity(0.2)) // 👈 غيره لـ .clear لاحقاً
+                                .frame(width: w * 0.1, height: h * 0.25)
                         }
-                        .position(x: geo.size.width * 0.07,
-                                  y: geo.size.height * 0.57)
+                        .position(x: w * 0.08, y: h * 0.55)
 
-                        // ✅ (3) الجورنال الأحمر: يروح لصفحة الجورنال
+                        // ج- الجورنال الأحمر
                         NavigationLink {
                             JournalView()
-
                         } label: {
                             Rectangle()
-                                .fill(Color.clear)
-                                .frame(width: geo.size.width * 0.14,
-                                       height: geo.size.height * 0.16)
+                                .fill(Color.green.opacity(0.2)) // 👈 غيره لـ .clear لاحقاً
+                                .frame(width: w * 0.15, height: h * 0.19)
                         }
-                        .position(x: geo.size.width * 0.17,
-                                  y: geo.size.height * 0.78)
+                        .position(x: w * 0.16, y: h * 0.8)
 
-                        // ✅ (4) الدفتر الأبيض الصغير: يطلع Sheet للتشك لست
+                        // د- الدفتر الأبيض (Checklist)
                         Button {
-                            showChecklistSheet = true
+                            withAnimation { showChecklistSheet.toggle() }
                         } label: {
                             Rectangle()
-                                .fill(Color.clear)
-                                .frame(width: geo.size.width * 0.06,
-                                       height: geo.size.height * 0.09)
+                                .fill(Color.yellow.opacity(0.9)) // 👈 غيره لـ .clear لاحقاً
+                                .frame(width: w * 0.1, height: h * 0.15)
                         }
-                        .position(x: geo.size.width * 0.77,
-                                  y: geo.size.height * 0.57)
+                        .position(x: w * 0.78, y: h * 0.60)
+                    }
+                    // نجعل الأزرار تتحرك مع الزووم لتبقى في مكانها الصحيح فوق الرسمة
+                    .scaleEffect(isDarkMode ? 1.08 : 1.0)
+                    .animation(.easeInOut(duration: 0.6), value: isDarkMode)
+                    
+                    // 👇 الدفتر ينزل من فوق (بدل الشيت)
+                    if showChecklistSheet {
+                        VStack(spacing: 0) {
+                            Text("الدفتر")
+                                .font(.largeTitle)
+                                .bold()
+                                .foregroundColor(.white) // 👈 أضف هذا السطر
+                                .padding()
 
-                        // 🔧 لو تبين تشوفين مربعات الضغط:
-                        // بدلي Color.clear إلى Color.red.opacity(0.25) مؤقتًا
+                            HStack {
+                                Spacer()
+                                Button {
+                                    withAnimation { showChecklistSheet = false }
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.title)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                }
+                            }
+                            .background(Color.green)
+                            
+                            Image("chicklist")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 400, maxHeight: 500)
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .shadow(radius: 20)
+                            
+                            Spacer()
+                        }
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .background(
+                            Color.black.opacity(0.3)
+                                .ignoresSafeArea()
+                                .onTapGesture {
+                                    withAnimation { showChecklistSheet = false }
+                                }
+                        )
                     }
                 }
             }
-            .sheet(isPresented: $showChecklistSheet) {
-                ChecklistSheetView()
-                    .presentationDetents([.large])          // ✅ كبير ويبدأ من تحت
-                    .presentationContentInteraction(.scrolls)
-                    .presentationDragIndicator(.visible)    // ✅ خط السحب
-            }
-
-            }
-
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
-                    .presentationBackground(.white)   // ✅ يخلي خلفية الشيت بيضاء فعلًا
-            }
-
-            }
-
-            
-        
-    
-
+        }
+    }
+}
 
 #Preview {
     let appState = AppStateViewModel()
     appState.selectedCharacter = Character(
-        name: "Girl",
+        name: "Osama",
         imageName: "girlCard",
         gender: .girl,
         workspaceImage: "maingirl"
     )
     return Mainpage().environmentObject(appState)
 }
+

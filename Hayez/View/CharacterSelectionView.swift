@@ -14,14 +14,14 @@ struct CharacterSelectionView: View {
         NavigationStack {
             GeometryReader { geo in
                 ZStack {
-                    // ✅ صورة الخلفية (فيها الزر الأصفر)
+                    // 1. الخلفية (كاملة بدون قص)
                     Image("backCard")
                         .resizable()
-                        .scaledToFill()
                         .ignoresSafeArea()
-                    
+                        .frame(width: geo.size.width, height: geo.size.height)
+
+                    // 2. المحتوى (الصور والنقاط)
                     VStack(spacing: 0) {
-                        // ✅ الصورة + النقاط
                         TabView(selection: $selectedIndex) {
                             ForEach(0..<vm.characters.count, id: \.self) { index in
                                 let character = vm.characters[index]
@@ -38,22 +38,46 @@ struct CharacterSelectionView: View {
                         .padding(.top, geo.size.height * 0.02)
                         .offset(y: -geo.size.height * 0.09)
                         .overlay(alignment: .bottom) {
-                            // ✅ النقاط
+                            // النقاط
                             HStack(spacing: 10) {
                                 ForEach(0..<vm.characters.count, id: \.self) { i in
                                     Circle()
-                                        .fill(i == selectedIndex ? Color.gray : Color.gray.opacity(0.35))
-                                        .frame(width: 8, height: 8)
+                                        // ✅ هنا نستخدم اسم اللون "point" الذي أنشأته
+                                        .fill(i == selectedIndex ? Color("point") : Color("point").opacity(0.35))
+                                        .frame(width: 16, height: 16)
                                 }
                             }
-                            .padding(.bottom, 38)
-                        }
 
+                            .padding(.bottom, 30)
+                        }
+                        
                         Spacer()
                     }
-                    
-                    // 🔘 الزر مع نص "Select"
-                    selectButtonWithText(in: geo.size)
+
+                    // 3. الزر (buttony)
+                    VStack {
+                        Spacer()
+                        
+                        Button {
+                            let chosen = vm.characters[selectedIndex]
+                            appState.selectCharacter(chosen)
+                            navigateToChecklist = true
+                        } label: {
+                            ZStack {
+                                Image("buttony")
+                                    .resizable()
+                                    // 👇 مقاسات التصميم
+                                    .frame(width: 231, height: 53)
+                                
+                                Text("Select")
+                                    .font(.custom("FingerPaint-Regular", size: 36))
+                                    .foregroundColor(.black)
+                                    .padding(.bottom, 4)
+                            }
+                        }
+                        // 👇👇👇 هنا السطر اللي يرفع الزر فوق
+                        .padding(.bottom, 10)
+                    }
                 }
             }
             .navigationDestination(isPresented: $navigateToChecklist) {
@@ -63,34 +87,10 @@ struct CharacterSelectionView: View {
             .navigationBarHidden(true)
         }
     }
-    
-    // 🔘 الزر مع نص "Select"
-    private func selectButtonWithText(in size: CGSize) -> some View {
-        Button(action: {
-            let chosen = vm.characters[selectedIndex]
-            appState.selectCharacter(chosen)
-            navigateToChecklist = true
-        }) {
-            ZStack {
-                // المستطيل الشفاف (يغطي الزر الأصفر)
-                Rectangle()
-                    .fill(Color.clear)  // 🔧 للتجربة: Color.red.opacity(0.3)
-                    .frame(width: size.width * 0.2, height: size.height * 0.07)
-                
-                // النص "Select" فوق الزر
-                Text("Select")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.black)  // 🔧 غيّر اللون حسب الخلفية
-            }
-        }
-        .position(
-            x: size.width * 0.52,   // 🔧 عدّل الموقع
-            y: size.height * 0.95   // 🔧 عدّل الموقع
-        )
-    }
 }
 
 #Preview {
     CharacterSelectionView()
         .environmentObject(AppStateViewModel())
 }
+
