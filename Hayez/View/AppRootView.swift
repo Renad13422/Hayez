@@ -12,7 +12,7 @@ struct AppRootView: View {
     var body: some View {
         Group {
             if appState.isCharacterChosen {
-                HomeView()
+                Mainpage()
             } else {
                 CharacterSelectionView()
             }
@@ -21,5 +21,5 @@ struct AppRootView: View {
     }
 }
 #Preview {
-    AppRootView()
+    CharacterSelectionView()
 }

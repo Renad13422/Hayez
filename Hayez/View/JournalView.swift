@@ -36,10 +36,10 @@ struct JournalView: View {
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     // خط عريض وواضح كما طلبتِ
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
                     .foregroundColor(.black.opacity(0.8))
                     .padding(15)
-                    .frame(width: w * 0.38, height: h * 0.60)
+                    .frame(width: w * 0.30, height: h * 0.60)
                     .focused($focusedPage, equals: .left)
                     // تحديد اتجاه النص (يمين للعربي، يسار للإنجليزي)
                     .multilineTextAlignment(isArabic(leftPageText) ? .trailing : .leading)

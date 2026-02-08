@@ -6,20 +6,32 @@
 //
 
 
-import Foundation
+import SwiftUI
 import Combine
 
-
-final class AppStateViewModel: ObservableObject {
+class AppStateViewModel: ObservableObject {
+    // هذا المتغير هو المسؤول عن التنقل بين الصفحات في AppRootView
+    @Published var isCharacterChosen: Bool = false
+    
+    // لتخزين بيانات الشخصية التي اختارها المستخدم
     @Published var selectedCharacter: Character?
 
-    var isCharacterChosen: Bool { selectedCharacter != nil }
-
+    // الدالة التي يتم استدعاؤها من صفحة CharacterSelectionView
     func selectCharacter(_ character: Character) {
-        selectedCharacter = character
+        // 1. تخزين الشخصية المختارة
+        self.selectedCharacter = character
+        
+        // 2. تغيير الحالة لـ true لتبديل الواجهة فوراً
+        withAnimation {
+            self.isCharacterChosen = true
+        }
+        
+        print("تم اختيار الشخصية: \(character.imageName)")
     }
-
-    func resetCharacter() {
-        selectedCharacter = nil
+    
+    // دالة اختيارية إذا أردت العودة لصفحة الاختيار لاحقاً
+    func resetSelection() {
+        self.isCharacterChosen = false
+        self.selectedCharacter = nil
     }
 }

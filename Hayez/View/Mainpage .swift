@@ -36,7 +36,6 @@ struct Mainpage: View {
                     Image(imageName)
                         .resizable()
                         .scaledToFill()
-                        .scaleEffect(isDarkMode ? 1.01 : 1.0) // زووم 8% عند تفعيل الدارك مود
                         .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                         .ignoresSafeArea()
 
@@ -153,4 +152,3 @@ struct Mainpage: View {
     )
     return Mainpage().environmentObject(appState)
 }
-
