@@ -21,5 +21,10 @@ struct AppRootView: View {
     }
 }
 #Preview {
-    CharacterSelectionView()
+    // ننشئ نسخة وهمية للـ Preview فقط
+    let mockAppState = AppStateViewModel()
+    
+    return AppRootView()
+        .environmentObject(mockAppState)
 }
+
