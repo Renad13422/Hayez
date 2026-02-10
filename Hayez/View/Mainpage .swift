@@ -4,7 +4,6 @@
 //
 //  Created by ريناد محمد حملي on 16/08/1447 AH.
 //
-
 import SwiftUI
 
 struct Mainpage: View {
@@ -52,7 +51,7 @@ struct Mainpage: View {
                             }
                         } label: {
                             Rectangle()
-                                .fill(Color.red.opacity(0.2)) // 👈 غيره لـ .clear بعد ضبط المقاس
+                                .fill(Color.clear)
                                 .frame(width: w * 0.15, height: h * 0.90)
                         }
                         .position(x: w * 0.08, y: h * 0.0)
@@ -66,7 +65,7 @@ struct Mainpage: View {
                             }
                         } label: {
                             Rectangle()
-                                .fill(Color.blue.opacity(0.2)) // 👈 غيره لـ .clear لاحقاً
+                                .fill(Color.clear)
                                 .frame(width: w * 0.1, height: h * 0.25)
                         }
                         .position(x: w * 0.08, y: h * 0.55)
@@ -76,7 +75,7 @@ struct Mainpage: View {
                             JournalView()
                         } label: {
                             Rectangle()
-                                .fill(Color.green.opacity(0.2)) // 👈 غيره لـ .clear لاحقاً
+                                .fill(Color.clear)
                                 .frame(width: w * 0.15, height: h * 0.19)
                         }
                         .position(x: w * 0.16, y: h * 0.8)
@@ -86,55 +85,52 @@ struct Mainpage: View {
                             withAnimation { showChecklistSheet.toggle() }
                         } label: {
                             Rectangle()
-                                .fill(Color.yellow.opacity(0.9)) // 👈 غيره لـ .clear لاحقاً
+                                .fill(Color.clear)
                                 .frame(width: w * 0.1, height: h * 0.15)
                         }
                         .position(x: w * 0.78, y: h * 0.60)
                     }
-                    // نجعل الأزرار تتحرك مع الزووم لتبقى في مكانها الصحيح فوق الرسمة
                     .scaleEffect(isDarkMode ? 1.08 : 1.0)
                     .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                     
-                    // 👇 الدفتر ينزل من فوق (بدل الشيت)
+                    // 🔥🔥 الدفتر ينزل من فوق - كبير وبدون خلفية بيضاء
                     if showChecklistSheet {
-                        VStack(spacing: 0) {
-                            Text("الدفتر")
-                                .font(.largeTitle)
-                                .bold()
-                                .foregroundColor(.white) // 👈 أضف هذا السطر
-                                .padding()
-
-                            HStack {
-                                Spacer()
-                                Button {
-                                    withAnimation { showChecklistSheet = false }
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .font(.title)
-                                        .foregroundColor(.gray)
-                                        .padding()
-                                }
-                            }
-                            .background(Color.green)
-                            
-                            Image("chicklist")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 400, maxHeight: 500)
-                                .background(Color.white)
-                                .cornerRadius(20)
-                                .shadow(radius: 20)
-                            
-                            Spacer()
-                        }
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .background(
-                            Color.black.opacity(0.3)
+                        ZStack {
+                            // خلفية شفافة سوداء للضغط عليها وإغلاق الصورة
+                            Color.black.opacity(0.4)
                                 .ignoresSafeArea()
                                 .onTapGesture {
                                     withAnimation { showChecklistSheet = false }
                                 }
-                        )
+                            
+                            VStack(spacing: 0) {
+                                // زر الإغلاق
+                                HStack {
+                                    Spacer()
+                                    Button {
+                                        withAnimation { showChecklistSheet = false }
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .font(.system(size: 40))
+                                            .foregroundColor(.white)
+                                            .shadow(radius: 5)
+                                            .padding()
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                // 🔥🔥 صورة الدفتر - كبيرة مره بدون خلفية بيضاء
+                                Image("chicklist")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: UIScreen.main.bounds.width * 1.15) // 🔥 90% من عرض الشاشة
+                                    // 💡 لتكبيرها أكثر، غيّر 0.9 لـ 0.95 أو 1.0
+                                
+                                Spacer()
+                            }
+                        }
+                        .transition(.move(edge: .top).combined(with: .opacity))
                     }
                 }
             }
