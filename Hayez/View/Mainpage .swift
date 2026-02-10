@@ -42,7 +42,10 @@ struct Mainpage: View {
                     GeometryReader { geo in
                         let w = geo.size.width
                         let h = geo.size.height
-
+                        // 👇 هنا وضعنا التايمر ليكون داخل إطار الشاشة السوداء في الرسمة
+                        PomodoroTimerView()
+                            .frame(width: w * 0.26, height: h * 0.10)
+                            .position(x: w * 0.525, y: h * 0.13)
                         // أ- زر الشباك (تبديل الوضع)
                         Button {
                             withAnimation(.easeInOut(duration: 0.4)) {
