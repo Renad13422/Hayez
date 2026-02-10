@@ -42,10 +42,12 @@ struct Mainpage: View {
                     GeometryReader { geo in
                         let w = geo.size.width
                         let h = geo.size.height
-                        // 👇 هنا وضعنا التايمر ليكون داخل إطار الشاشة السوداء في الرسمة
-                        PomodoroTimerView()
+                        
+                        // ✅ التايمر مربوط الآن بمتغير isDarkMode
+                        PomodoroTimerView(isWindowDark: isDarkMode)
                             .frame(width: w * 0.26, height: h * 0.10)
                             .position(x: w * 0.525, y: h * 0.13)
+                        
                         // أ- زر الشباك (تبديل الوضع)
                         Button {
                             withAnimation(.easeInOut(duration: 0.4)) {
@@ -96,10 +98,9 @@ struct Mainpage: View {
                     .scaleEffect(isDarkMode ? 1.08 : 1.0)
                     .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                     
-                    // 🔥🔥 الدفتر ينزل من فوق - كبير وبدون خلفية بيضاء
+                    // الدفتر (Checklist)
                     if showChecklistSheet {
                         ZStack {
-                            // خلفية شفافة سوداء للضغط عليها وإغلاق الصورة
                             Color.black.opacity(0.4)
                                 .ignoresSafeArea()
                                 .onTapGesture {
@@ -107,7 +108,6 @@ struct Mainpage: View {
                                 }
                             
                             VStack(spacing: 0) {
-                                // زر الإغلاق
                                 HStack {
                                     Spacer()
                                     Button {
@@ -120,16 +120,11 @@ struct Mainpage: View {
                                             .padding()
                                     }
                                 }
-                                
                                 Spacer()
-                                
-                                // 🔥🔥 صورة الدفتر - كبيرة مره بدون خلفية بيضاء
                                 Image("chicklist")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width * 1.15) // 🔥 90% من عرض الشاشة
-                                    // 💡 لتكبيرها أكثر، غيّر 0.9 لـ 0.95 أو 1.0
-                                
+                                    .frame(width: UIScreen.main.bounds.width * 1.15)
                                 Spacer()
                             }
                         }
@@ -140,6 +135,7 @@ struct Mainpage: View {
         }
     }
 }
+
 
 #Preview {
     let appState = AppStateViewModel()

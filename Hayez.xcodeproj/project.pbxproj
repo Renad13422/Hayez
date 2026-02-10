@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F1A7B4CB2F3B947C00340DF0 /* HayezActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		951133A72F2A3C120097133B /* Hayez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hayez.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HayezActivityAttributes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +50,7 @@
 		9511339E2F2A3C120097133B = {
 			isa = PBXGroup;
 			children = (
+				F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */,
 				951133A92F2A3C120097133B /* Hayez */,
 				951133A82F2A3C120097133B /* Products */,
 			);
@@ -132,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A7B4CB2F3B947C00340DF0 /* HayezActivityAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +275,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hayez/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -300,6 +308,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hayez/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
