@@ -56,7 +56,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 0)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked1, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                .lineLimit(1)
                                 .onChange(of: item1) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -82,7 +82,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-455, y: -70)
+                            .offset(x:-500, y: -70)
                         }
                         
                         // 2
@@ -91,7 +91,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 1)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked2, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item2) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -117,7 +117,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-450, y: -40)
+                            .offset(x:-495, y: -40)
                         }
                         
                         // 3
@@ -126,7 +126,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 2)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked3, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item3) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -152,7 +152,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-455, y: -6)
+                            .offset(x:-490, y: -6)
                         }
                         
                         // 4
@@ -161,7 +161,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 3)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked4, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item4) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -187,7 +187,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-445, y: 27)
+                            .offset(x:-480, y: 27)
                         }
                         
                         // 5
@@ -196,7 +196,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 4)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked5, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item5) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -222,7 +222,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-437, y: 68)
+                            .offset(x:-471, y: 68)
                         }
                         
                         // 6
@@ -231,7 +231,7 @@ struct ChecklistSheetView: View {
                                 .focused($focusedIndex, equals: 5)
                                 .textFieldStyle(.plain)
                                 .strikethrough(isChecked6, color: .black)
-                                .frame(width: 300)
+                                .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item6) { oldValue, newValue in
                                     if newValue.count > 30 {
@@ -257,7 +257,7 @@ struct ChecklistSheetView: View {
                                     }
                                 }
                             }
-                            .offset(x:-429, y: 110)
+                            .offset(x:-465, y: 110)
                         }
                     }
                 }
