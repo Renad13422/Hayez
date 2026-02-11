@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "59B16964-42B2-4787-92B6-D729C8EB5A28"
+            uuid = "93DA6062-0094-4E71-8B19-061FE4531888"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Hayez/View/AppRootView.swift"
+            filePath = "Hayez/View/Mainpage .swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>

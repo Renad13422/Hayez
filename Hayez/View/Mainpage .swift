@@ -22,7 +22,6 @@ struct Mainpage: View {
                     let baseImage = character.workspaceImage
                     let darkImage = (character.gender == .girl) ? "maingirldark" : "mainboydark"
                     let lightImage = (character.gender == .girl) ? "lightgirl" : "lightboy"
-
                     let imageName: String = {
                         if isDarkMode {
                             return isLampOn ? lightImage : darkImage
@@ -47,6 +46,21 @@ struct Mainpage: View {
                         PomodoroTimerView(isWindowDark: isDarkMode)
                             .frame(width: w * 0.26, height: h * 0.10)
                             .position(x: w * 0.525, y: h * 0.13)
+                        /// ✅ زر الرجوع بنفس تصميم زر الشباك
+                        Button {
+                            appState.resetSelection()
+                        } label: {
+                            Circle()
+                                .fill(Color.white.opacity(0.9))
+                                .frame(width: w * 0.03, height: w * 0.02)
+                                .overlay(
+                                    Image(systemName: "chevron.backward.circle.fill")
+                                        .font(.system(size: 35, weight: .semibold))
+                                        .foregroundColor(.black.opacity(0.4))
+                                )
+                        }
+                        .position(x: w * 0.92, y: h * 0.11)
+
                         
                         // أ- زر الشباك (تبديل الوضع)
                         Button {
@@ -129,3 +143,20 @@ struct Mainpage: View {
     )
     return Mainpage().environmentObject(appState)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
