@@ -97,39 +97,21 @@ struct Mainpage: View {
                     }
                     .scaleEffect(isDarkMode ? 1.08 : 1.0)
                     .animation(.easeInOut(duration: 0.6), value: isDarkMode)
-                    
-                    // الدفتر (Checklist)
-                    if showChecklistSheet {
-                        ZStack {
-                            Color.black.opacity(0.4)
-                                .ignoresSafeArea()
-                                .onTapGesture {
-                                    withAnimation { showChecklistSheet = false }
-                                }
-                            
-                            VStack(spacing: 0) {
-                                HStack {
-                                    Spacer()
-                                    Button {
-                                        withAnimation { showChecklistSheet = false }
-                                    } label: {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .font(.system(size: 40))
-                                            .foregroundColor(.white)
-                                            .shadow(radius: 5)
-                                            .padding()
-                                    }
-                                }
-                                Spacer()
-                                Image("chicklist")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width * 1.15)
-                                Spacer()
+                }
+                
+                // ✅ الدفتر (Checklist) - برا الـ if character
+                if showChecklistSheet {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                withAnimation { showChecklistSheet = false }
                             }
-                        }
-                        .transition(.move(edge: .top).combined(with: .opacity))
+                        
+                        // ✅ هنا نستدعي ChecklistSheetView بدلاً من الصورة
+                        ChecklistSheetView()
                     }
+                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
         }
