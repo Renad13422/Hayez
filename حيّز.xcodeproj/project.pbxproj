@@ -7,15 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1739D562F3DD36800CB9B14 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1739D552F3DD36800CB9B14 /* WidgetKit.framework */; };
+		F1739D582F3DD36800CB9B14 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1739D572F3DD36800CB9B14 /* SwiftUI.framework */; };
+		F1739D692F3DD36A00CB9B14 /* LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F1739D532F3DD36800CB9B14 /* LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F1739D6F2F3DD58B00CB9B14 /* HayezActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */; };
 		F1A7B4CB2F3B947C00340DF0 /* HayezActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F1739D672F3DD36A00CB9B14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9511339F2F2A3C120097133B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1739D522F3DD36800CB9B14;
+			remoteInfo = LiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F1739D6A2F3DD36A00CB9B14 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F1739D692F3DD36A00CB9B14 /* LiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		951133A72F2A3C120097133B /* Hayez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hayez.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1739D532F3DD36800CB9B14 /* LiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1739D552F3DD36800CB9B14 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F1739D572F3DD36800CB9B14 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HayezActivityAttributes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F1739D6E2F3DD36A00CB9B14 /* Exceptions for "LiveActivity" folder in "LiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F1739D522F3DD36800CB9B14 /* LiveActivityExtension */;
+		};
 		F1BA96B52F34CFA20073C6BB /* Exceptions for "Hayez" folder in "Hayez" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -34,6 +72,14 @@
 			path = Hayez;
 			sourceTree = "<group>";
 		};
+		F1739D592F3DD36800CB9B14 /* LiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F1739D6E2F3DD36A00CB9B14 /* Exceptions for "LiveActivity" folder in "LiveActivityExtension" target */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +87,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1739D502F3DD36800CB9B14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1739D582F3DD36800CB9B14 /* SwiftUI.framework in Frameworks */,
+				F1739D562F3DD36800CB9B14 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +107,8 @@
 			children = (
 				F1A7B4CA2F3B947C00340DF0 /* HayezActivityAttributes.swift */,
 				951133A92F2A3C120097133B /* Hayez */,
+				F1739D592F3DD36800CB9B14 /* LiveActivity */,
+				F1739D542F3DD36800CB9B14 /* Frameworks */,
 				951133A82F2A3C120097133B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,8 +117,18 @@
 			isa = PBXGroup;
 			children = (
 				951133A72F2A3C120097133B /* Hayez.app */,
+				F1739D532F3DD36800CB9B14 /* LiveActivityExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F1739D542F3DD36800CB9B14 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1739D552F3DD36800CB9B14 /* WidgetKit.framework */,
+				F1739D572F3DD36800CB9B14 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,10 +141,12 @@
 				951133A32F2A3C120097133B /* Sources */,
 				951133A42F2A3C120097133B /* Frameworks */,
 				951133A52F2A3C120097133B /* Resources */,
+				F1739D6A2F3DD36A00CB9B14 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F1739D682F3DD36A00CB9B14 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				951133A92F2A3C120097133B /* Hayez */,
@@ -88,6 +157,28 @@
 			productName = Hayez;
 			productReference = 951133A72F2A3C120097133B /* Hayez.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F1739D522F3DD36800CB9B14 /* LiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1739D6D2F3DD36A00CB9B14 /* Build configuration list for PBXNativeTarget "LiveActivityExtension" */;
+			buildPhases = (
+				F1739D4F2F3DD36800CB9B14 /* Sources */,
+				F1739D502F3DD36800CB9B14 /* Frameworks */,
+				F1739D512F3DD36800CB9B14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F1739D592F3DD36800CB9B14 /* LiveActivity */,
+			);
+			name = LiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = LiveActivityExtension;
+			productReference = F1739D532F3DD36800CB9B14 /* LiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -100,6 +191,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					951133A62F2A3C120097133B = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					F1739D522F3DD36800CB9B14 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
@@ -119,12 +213,20 @@
 			projectRoot = "";
 			targets = (
 				951133A62F2A3C120097133B /* Hayez */,
+				F1739D522F3DD36800CB9B14 /* LiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		951133A52F2A3C120097133B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1739D512F3DD36800CB9B14 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -142,7 +244,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1739D4F2F3DD36800CB9B14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1739D6F2F3DD58B00CB9B14 /* HayezActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1739D682F3DD36A00CB9B14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1739D522F3DD36800CB9B14 /* LiveActivityExtension */;
+			targetProxy = F1739D672F3DD36A00CB9B14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		951133B02F2A3C130097133B /* Debug */ = {
@@ -271,7 +389,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R89G8CXH9H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hayez/Info.plist;
@@ -305,7 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = R89G8CXH9H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hayez/Info.plist;
@@ -332,6 +450,70 @@
 			};
 			name = Release;
 		};
+		F1739D6B2F3DD36A00CB9B14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R89G8CXH9H;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.renad.Hayez.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1739D6C2F3DD36A00CB9B14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R89G8CXH9H;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.renad.Hayez.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -349,6 +531,15 @@
 			buildConfigurations = (
 				951133B32F2A3C130097133B /* Debug */,
 				951133B42F2A3C130097133B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1739D6D2F3DD36A00CB9B14 /* Build configuration list for PBXNativeTarget "LiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1739D6B2F3DD36A00CB9B14 /* Debug */,
+				F1739D6C2F3DD36A00CB9B14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
