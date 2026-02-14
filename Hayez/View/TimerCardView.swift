@@ -7,6 +7,9 @@ import SwiftUI
 struct PomodoroTimerView: View {
     var isWindowDark: Bool = false
     
+    // 1️⃣ التعديل الأول: أضفنا تعريف الأكشن هنا عشان المين بيج تقدر تستخدمه
+    var onTimerFinish: () -> Void
+
     @State private var selectedHours = 0
     @State private var selectedMinutes = 0
     @State private var timeRemaining = 0
@@ -47,7 +50,6 @@ struct PomodoroTimerView: View {
                             .foregroundColor(isWindowDark ? .white : .black)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 6)
-                            // ✅ هنا التعديل: رمادي إذا الوقت صفر، وأخضر إذا تم التحديد
                             .background((selectedHours == 0 && selectedMinutes == 0) ? Color.gray : Color.green)
                             .clipShape(Capsule())
                     }
@@ -101,7 +103,13 @@ struct PomodoroTimerView: View {
     func startTimer() {
         isRunning = true
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if timeRemaining > 0 { timeRemaining -= 1 } else { stopTimer() }
+            if timeRemaining > 0 {
+                timeRemaining -= 1
+            } else {
+                stopTimer()
+                // 2️⃣ التعديل الثاني: نادينا الأكشن هنا عشان يفتح بوب أب الرفلكشن فوراً
+                onTimerFinish()
+            }
         }
     }
     
@@ -112,11 +120,11 @@ struct PomodoroTimerView: View {
     }
 }
 
-// ✅ الكانفس لمشاهدة تغيير لون الزر عند التحريك
+// 3️⃣ التعديل الثالث: صلحنا البرفيو ومررنا له أكشن فاضي عشان ما يزعل
 #Preview {
     ZStack {
         Color.black.ignoresSafeArea()
-        PomodoroTimerView(isWindowDark: false)
+        PomodoroTimerView(isWindowDark: false, onTimerFinish: {})
     }
 }
 

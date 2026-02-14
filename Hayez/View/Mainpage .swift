@@ -12,16 +12,19 @@ struct Mainpage: View {
     @State private var isDarkMode = false
     @State private var isLampOn = false
     @State private var showChecklistSheet = false
+    @State private var showReflectionPopup = false // للتحكم في ظهور بوب أب الرفليكت
+    @State private var goToJournalFromTimer = false // للتحكم في الانتقال للجورنال
 
     var body: some View {
         NavigationStack {
             ZStack {
                 if let character = appState.selectedCharacter {
 
-                    // 1. تحديد الصور بناءً على الحالة والشخصية
+                    // 1. منطق الصور (تتغير حسب الشخصية والوضع واللمبة)
                     let baseImage = character.workspaceImage
                     let darkImage = (character.gender == .girl) ? "maingirldark" : "mainboydark"
                     let lightImage = (character.gender == .girl) ? "lightgirl" : "lightboy"
+                    
                     let imageName: String = {
                         if isDarkMode {
                             return isLampOn ? lightImage : darkImage
@@ -30,23 +33,28 @@ struct Mainpage: View {
                         }
                     }()
 
-                    // 2. الخلفية مع تأثير الزووم
+                    // 2. الخلفية الأساسية (التي تتفاعل مع الزووم والأنميشن)
                     Image(imageName)
                         .resizable()
                         .scaledToFill()
                         .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                         .ignoresSafeArea()
 
-                    // 3. طبقة أزرار الضغط (GeometryReader)
+                    // 3. طبقة العناصر التفاعلية باستخدام GeometryReader
                     GeometryReader { geo in
                         let w = geo.size.width
                         let h = geo.size.height
                         
-                        // ✅ التايمر مربوط الآن بمتغير isDarkMode
-                        PomodoroTimerView(isWindowDark: isDarkMode)
-                            .frame(width: w * 0.26, height: h * 0.10)
-                            .position(x: w * 0.525, y: h * 0.13)
-                        /// ✅ زر الرجوع بنفس تصميم زر الشباك
+                        // ✅ التايمر: عند الانتهاء يُظهر بوب أب الرفليكت
+                        PomodoroTimerView(isWindowDark: isDarkMode) {
+                            withAnimation(.spring()) {
+                                showReflectionPopup = true
+                            }
+                        }
+                        .frame(width: w * 0.26, height: h * 0.10)
+                        .position(x: w * 0.525, y: h * 0.13)
+
+                        // زر الرجوع لشاشة اختيار الشخصية
                         Button {
                             appState.resetSelection()
                         } label: {
@@ -61,8 +69,7 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.92, y: h * 0.11)
 
-                        
-                        // أ- زر الشباك (تبديل الوضع)
+                        // زر الشباك (Toggle Dark Mode)
                         Button {
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 isDarkMode.toggle()
@@ -75,7 +82,7 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.08, y: h * 0.0)
 
-                        // ب- زر المصباح (يشتغل فقط في الدارك مود)
+                        // زر المصباح (يعمل فقط في الوضع المظلم)
                         Button {
                             if isDarkMode {
                                 withAnimation(.easeInOut(duration: 0.25)) {
@@ -89,17 +96,15 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.08, y: h * 0.55)
 
-                        // ج- الجورنال الأحمر
-                        NavigationLink {
-                            JournalView()
-                        } label: {
+                        // الجورنال الأحمر (دخول يدوي عند الضغط عليه في الرسمة)
+                        NavigationLink(destination: JournalView()) {
                             Rectangle()
                                 .fill(Color.clear)
                                 .frame(width: w * 0.15, height: h * 0.19)
                         }
                         .position(x: w * 0.16, y: h * 0.8)
 
-                        // د- الدفتر الأبيض (Checklist)
+                        // الدفتر الأبيض (Checklist)
                         Button {
                             withAnimation { showChecklistSheet.toggle() }
                         } label: {
@@ -113,7 +118,7 @@ struct Mainpage: View {
                     .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                 }
                 
-                // ✅ الدفتر (Checklist) - برا الـ if character
+                // ✅ طبقة قائمة المهام (Checklist)
                 if showChecklistSheet {
                     ZStack {
                         Color.black.opacity(0.4)
@@ -121,42 +126,53 @@ struct Mainpage: View {
                             .onTapGesture {
                                 withAnimation { showChecklistSheet = false }
                             }
-                        
-                        // ✅ هنا نستدعي ChecklistSheetView بدلاً من الصورة
                         ChecklistSheetView()
                     }
                     .transition(.move(edge: .top).combined(with: .opacity))
+                    .zIndex(5)
                 }
+
+                // ✅ بوب أب الرفليكت المخصص (يظهر عند انتهاء التايمر)
+                if showReflectionPopup {
+                    ZStack {
+                        Color.black.opacity(0.45)
+                            .ignoresSafeArea()
+                            .onTapGesture { showReflectionPopup = false }
+
+                        // استدعاء ملف الـ ReflectionPopupView الذي أنشأناه
+                        ReflectionPopupView(
+                            gender: (appState.selectedCharacter?.gender == .girl) ? "girl" : "boy",
+                            isDark: isDarkMode,
+                            onYesTap: {
+                                // إغلاق البوب أب وتفعيل الانتقال للجورنال
+                                showReflectionPopup = false
+                                goToJournalFromTimer = true
+                            },
+                            onNoTap: {
+                                withAnimation { showReflectionPopup = false }
+                            }
+                        )
+                    }
+                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+                    .zIndex(10) // لضمان ظهوره فوق كل شيء
+                }
+            }
+            // الربط البرمجي للانتقال لصفحة الجورنال
+            .navigationDestination(isPresented: $goToJournalFromTimer) {
+                JournalView()
             }
         }
     }
 }
 
-
 #Preview {
     let appState = AppStateViewModel()
+    // تجربة البرفيو بشخصية بنت (ريناد)
     appState.selectedCharacter = Character(
-        name: "Osama",
+        name: "Renad",
         imageName: "girlCard",
         gender: .girl,
         workspaceImage: "maingirl"
     )
     return Mainpage().environmentObject(appState)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
