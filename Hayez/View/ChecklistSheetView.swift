@@ -52,9 +52,10 @@ struct ChecklistSheetView: View {
                     VStack(spacing: 14) {
                         // 1
                         HStack(spacing: 18) {
-                            TextField("", text: $item1)
+                            TextField("write here...", text: $item1)
                                 .focused($focusedIndex, equals: 0)
                                 .textFieldStyle(.plain)
+                                .font(.system(size:24,weight:.medium))
                                 .strikethrough(isChecked1, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                .lineLimit(1)
@@ -90,7 +91,7 @@ struct ChecklistSheetView: View {
                             TextField("", text: $item2)
                                 .focused($focusedIndex, equals: 1)
                                 .textFieldStyle(.plain)
-                                .strikethrough(isChecked2, color: .black)
+                                .font(.system(size:24,weight:.medium))                                .strikethrough(isChecked2, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item2) { oldValue, newValue in
@@ -125,7 +126,7 @@ struct ChecklistSheetView: View {
                             TextField("", text: $item3)
                                 .focused($focusedIndex, equals: 2)
                                 .textFieldStyle(.plain)
-                                .strikethrough(isChecked3, color: .black)
+                                .font(.system(size:24,weight:.medium))                                .strikethrough(isChecked3, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item3) { oldValue, newValue in
@@ -160,7 +161,7 @@ struct ChecklistSheetView: View {
                             TextField("", text: $item4)
                                 .focused($focusedIndex, equals: 3)
                                 .textFieldStyle(.plain)
-                                .strikethrough(isChecked4, color: .black)
+                                .font(.system(size:24,weight:.medium))                                .strikethrough(isChecked4, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item4) { oldValue, newValue in
@@ -195,7 +196,7 @@ struct ChecklistSheetView: View {
                             TextField("", text: $item5)
                                 .focused($focusedIndex, equals: 4)
                                 .textFieldStyle(.plain)
-                                .strikethrough(isChecked5, color: .black)
+                                .font(.system(size:24,weight:.medium))                                .strikethrough(isChecked5, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item5) { oldValue, newValue in
@@ -230,7 +231,7 @@ struct ChecklistSheetView: View {
                             TextField("", text: $item6)
                                 .focused($focusedIndex, equals: 5)
                                 .textFieldStyle(.plain)
-                                .strikethrough(isChecked6, color: .black)
+                                .font(.system(size:24,weight:.medium))                                .strikethrough(isChecked6, color: .black)
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item6) { oldValue, newValue in
