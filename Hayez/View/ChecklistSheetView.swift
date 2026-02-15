@@ -9,19 +9,20 @@ import SwiftUI
 struct ChecklistSheetView: View {
     @Environment(\.dismiss) var dismiss
     
-    @State private var item1 = ""
-    @State private var item2 = ""
-    @State private var item3 = ""
-    @State private var item4 = ""
-    @State private var item5 = ""
-    @State private var item6 = ""
-    
-    @State private var isChecked1 = false
-    @State private var isChecked2 = false
-    @State private var isChecked3 = false
-    @State private var isChecked4 = false
-    @State private var isChecked5 = false
-    @State private var isChecked6 = false
+    @AppStorage("item1") private var item1 = ""
+        @AppStorage("item2") private var item2 = ""
+        @AppStorage("item3") private var item3 = ""
+        @AppStorage("item4") private var item4 = ""
+        @AppStorage("item5") private var item5 = ""
+        @AppStorage("item6") private var item6 = ""
+        
+        @AppStorage("isChecked1") private var isChecked1 = false
+        @AppStorage("isChecked2") private var isChecked2 = false
+        @AppStorage("isChecked3") private var isChecked3 = false
+        @AppStorage("isChecked4") private var isChecked4 = false
+        @AppStorage("isChecked5") private var isChecked5 = false
+        @AppStorage("isChecked6") private var isChecked6 = false
+        
     
     @FocusState private var focusedIndex: Int?
     
@@ -60,7 +61,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                .lineLimit(1)
                                 .onChange(of: item1) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item1 = String(newValue.prefix(30))
                                     }
                                 }
@@ -79,7 +80,7 @@ struct ChecklistSheetView: View {
                                     if isChecked1 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
@@ -95,7 +96,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item2) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item2 = String(newValue.prefix(30))
                                     }
                                 }
@@ -114,7 +115,7 @@ struct ChecklistSheetView: View {
                                     if isChecked2 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
@@ -130,7 +131,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item3) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item3 = String(newValue.prefix(30))
                                     }
                                 }
@@ -149,7 +150,7 @@ struct ChecklistSheetView: View {
                                     if isChecked3 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
@@ -165,7 +166,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item4) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item4 = String(newValue.prefix(30))
                                     }
                                 }
@@ -184,7 +185,7 @@ struct ChecklistSheetView: View {
                                     if isChecked4 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
@@ -200,7 +201,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item5) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item5 = String(newValue.prefix(30))
                                     }
                                 }
@@ -219,7 +220,7 @@ struct ChecklistSheetView: View {
                                     if isChecked5 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
@@ -235,7 +236,7 @@ struct ChecklistSheetView: View {
                                 .frame(width: 320)
                                 .multilineTextAlignment(.trailing)                                  .lineLimit(1)
                                 .onChange(of: item6) { oldValue, newValue in
-                                    if newValue.count > 30 {
+                                    if newValue.count > 17 {
                                         item6 = String(newValue.prefix(30))
                                     }
                                 }
@@ -254,7 +255,7 @@ struct ChecklistSheetView: View {
                                     if isChecked6 {
                                         Image(systemName: "checkmark")
                                             .font(.system(size: 30, weight: .bold))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.green)
                                     }
                                 }
                             }
