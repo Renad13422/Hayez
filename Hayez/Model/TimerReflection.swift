@@ -12,10 +12,9 @@ struct ReflectionPopupView: View {
     var onNoTap: () -> Void
 
     var body: some View {
-        // تقليل الـ spacing السالب يخلي الستيكر يدخل أكثر
         HStack(alignment: .center, spacing: -100) {
             
-            // ستيكر الشخصية
+            // 1. ستيكر الشخصية: بيظهر دائماً بنفس الحجم (لايت أو دارك)
             Image(getReflectionImage())
                 .resizable()
                 .scaledToFit()
@@ -23,13 +22,12 @@ struct ReflectionPopupView: View {
                 .zIndex(1)
                 .offset(y: -25)
 
-            // فقاعة السؤال
+            // 2. فقاعة السؤال
             VStack(alignment: .leading, spacing: 12) {
                 Text("Would you like to reflect?")
-                    // استخدام الخط المخصص FingerPaint
                     .font(.custom("FingerPaint-Regular", size: 28))
-                    .foregroundColor(.black)
-                    .fixedSize(horizontal: false, vertical: true)
+                    // يتغير لون النص فقط للأبيض في الدارك ليكون أوضح
+                    .foregroundColor(isDark ? .white : .black)
                 
                 HStack(spacing: 15) {
                     Button("yes") { onYesTap() }
@@ -39,26 +37,27 @@ struct ReflectionPopupView: View {
                         .buttonStyle(ReflectionButtonStyle())
                 }
             }
-            // تقليل الـ leading padding يخلي النص يتوسع جهة الستيكر
-            .padding(.leading, 150)
+            .padding(.leading, 110)
             .padding(.trailing, 25)
             .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 40)
-                    .fill(Color(red: 0.9, green: 0.82, blue: 0.61))
+                    // ✅ هنا التغيير: نستخدم اللون الكحلي #292B43 في الدارك والبيج في اللايت
+                    .fill(isDark ? Color("reflectdark2") : Color(red: 0.9, green: 0.82, blue: 0.61))
                     .shadow(color: .black.opacity(0.12), radius: 10, x: 0, y: 8)
             )
         }
         .padding()
     }
-    
+
+    // ✅ الدالة المحدثة: تستخدم نفس الستيكرات في الحالتين عشان ما يختفي شي
     func getReflectionImage() -> String {
-        if isDark { return "reflectdark" }
+        // نرجع الستيكر حسب الجنس المختار فقط، بغض النظر عن الدارك مود
         return (gender == "girl") ? "reflectgirl" : "reflectboy"
     }
 }
 
-// ستايل الأزرار مع الخط المخصص
+// ستايل الأزرار
 struct ReflectionButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -73,13 +72,20 @@ struct ReflectionButtonStyle: ButtonStyle {
     }
 }
 
-#Preview {
+// MARK: - البرفيو (Preview)
+#Preview("Light Mode") {
     ZStack {
-        Color.gray.opacity(0.2).ignoresSafeArea()
+        Color.gray.opacity(0.1).ignoresSafeArea()
         ReflectionPopupView(gender: "boy", isDark: false, onYesTap: {}, onNoTap: {})
     }
 }
 
+#Preview("Dark Mode") {
+    ZStack {
+        Color(red: 0.1, green: 0.1, blue: 0.2).ignoresSafeArea()
+        ReflectionPopupView(gender: "girl", isDark: true, onYesTap: {}, onNoTap: {})
+    }
+}
 
 
 

@@ -6,10 +6,10 @@
 
 import SwiftUI
 
-struct ChecklistSheetView: View {
+    struct ChecklistSheetView: View {
     @Environment(\.dismiss) var dismiss
     
-    @AppStorage("item1") private var item1 = ""
+        @AppStorage("item1") private var item1 = ""
         @AppStorage("item2") private var item2 = ""
         @AppStorage("item3") private var item3 = ""
         @AppStorage("item4") private var item4 = ""
@@ -272,3 +272,7 @@ struct ChecklistSheetView: View {
 #Preview {
     ChecklistSheetView()
 }
+
+
+
+

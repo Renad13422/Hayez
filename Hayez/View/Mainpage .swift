@@ -13,7 +13,10 @@ struct Mainpage: View {
     @State private var isLampOn = false
     @State private var showChecklistSheet = false
     @State private var showReflectionPopup = false // للتحكم في ظهور بوب أب الرفليكت
-    @State private var goToJournalFromTimer = false // للتحكم في الانتقال للجورنال
+    @State private var goToJournalFromTimer = false
+    @AppStorage("hasSeenTutorial") private var hasSeenTutorial = true
+    @State private var showTutorial = false
+// للتحكم في الانتقال للجورنال
 
     var body: some View {
         NavigationStack {
@@ -140,11 +143,12 @@ struct Mainpage: View {
                             .onTapGesture { showReflectionPopup = false }
 
                         // استدعاء ملف الـ ReflectionPopupView الذي أنشأناه
+                        // في ملف Mainpage.swift
                         ReflectionPopupView(
+                            // نرسل الـ gender كـ String "girl" أو "boy"
                             gender: (appState.selectedCharacter?.gender == .girl) ? "girl" : "boy",
                             isDark: isDarkMode,
                             onYesTap: {
-                                // إغلاق البوب أب وتفعيل الانتقال للجورنال
                                 showReflectionPopup = false
                                 goToJournalFromTimer = true
                             },
@@ -152,14 +156,36 @@ struct Mainpage: View {
                                 withAnimation { showReflectionPopup = false }
                             }
                         )
+
                     }
                     .transition(.asymmetric(insertion: .scale, removal: .opacity))
-                    .zIndex(10) // لضمان ظهوره فوق كل شيء
+                    .zIndex(10)
+                    // ✅ التيوتوريال
+                    if showTutorial {
+                        OnboardingTutorialView {
+                            withAnimation {
+                                showTutorial = false
+                                hasSeenTutorial = true
+                            }
+                        }
+                        .zIndex(20)
+                    }
+// لضمان ظهوره فوق كل شيء
                 }
             }
             // الربط البرمجي للانتقال لصفحة الجورنال
             .navigationDestination(isPresented: $goToJournalFromTimer) {
                 JournalView()
+            }
+            
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    withAnimation(.easeIn(duration: 0.4)) {
+                        if !hasSeenTutorial {
+                            showTutorial = true
+                        }
+                    }
+                }
             }
         }
     }
