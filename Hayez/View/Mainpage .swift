@@ -12,18 +12,16 @@ struct Mainpage: View {
     @State private var isDarkMode = false
     @State private var isLampOn = false
     @State private var showChecklistSheet = false
-    @State private var showReflectionPopup = false // للتحكم في ظهور بوب أب الرفليكت
+    @State private var showReflectionPopup = false
     @State private var goToJournalFromTimer = false
-    @AppStorage("hasSeenTutorial") private var hasSeenTutorial = true
+    @AppStorage("hasSeenTutorial") private var hasSeenTutorial = false
     @State private var showTutorial = false
-// للتحكم في الانتقال للجورنال
 
     var body: some View {
         NavigationStack {
             ZStack {
                 if let character = appState.selectedCharacter {
 
-                    // 1. منطق الصور (تتغير حسب الشخصية والوضع واللمبة)
                     let baseImage = character.workspaceImage
                     let darkImage = (character.gender == .girl) ? "maingirldark" : "mainboydark"
                     let lightImage = (character.gender == .girl) ? "lightgirl" : "lightboy"
@@ -36,19 +34,16 @@ struct Mainpage: View {
                         }
                     }()
 
-                    // 2. الخلفية الأساسية (التي تتفاعل مع الزووم والأنميشن)
                     Image(imageName)
                         .resizable()
                         .scaledToFill()
                         .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                         .ignoresSafeArea()
 
-                    // 3. طبقة العناصر التفاعلية باستخدام GeometryReader
                     GeometryReader { geo in
                         let w = geo.size.width
                         let h = geo.size.height
                         
-                        // ✅ التايمر: عند الانتهاء يُظهر بوب أب الرفليكت
                         PomodoroTimerView(isWindowDark: isDarkMode) {
                             withAnimation(.spring()) {
                                 showReflectionPopup = true
@@ -57,7 +52,6 @@ struct Mainpage: View {
                         .frame(width: w * 0.26, height: h * 0.10)
                         .position(x: w * 0.525, y: h * 0.13)
 
-                        // زر الرجوع لشاشة اختيار الشخصية
                         Button {
                             appState.resetSelection()
                         } label: {
@@ -72,7 +66,6 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.92, y: h * 0.11)
 
-                        // زر الشباك (Toggle Dark Mode)
                         Button {
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 isDarkMode.toggle()
@@ -85,7 +78,6 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.08, y: h * 0.0)
 
-                        // زر المصباح (يعمل فقط في الوضع المظلم)
                         Button {
                             if isDarkMode {
                                 withAnimation(.easeInOut(duration: 0.25)) {
@@ -99,7 +91,6 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.08, y: h * 0.55)
 
-                        // الجورنال الأحمر (دخول يدوي عند الضغط عليه في الرسمة)
                         NavigationLink(destination: JournalView()) {
                             Rectangle()
                                 .fill(Color.clear)
@@ -107,7 +98,6 @@ struct Mainpage: View {
                         }
                         .position(x: w * 0.16, y: h * 0.8)
 
-                        // الدفتر الأبيض (Checklist)
                         Button {
                             withAnimation { showChecklistSheet.toggle() }
                         } label: {
@@ -121,7 +111,6 @@ struct Mainpage: View {
                     .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                 }
                 
-                // ✅ طبقة قائمة المهام (Checklist)
                 if showChecklistSheet {
                     ZStack {
                         Color.black.opacity(0.4)
@@ -135,17 +124,13 @@ struct Mainpage: View {
                     .zIndex(5)
                 }
 
-                // ✅ بوب أب الرفليكت المخصص (يظهر عند انتهاء التايمر)
                 if showReflectionPopup {
                     ZStack {
                         Color.black.opacity(0.45)
                             .ignoresSafeArea()
                             .onTapGesture { showReflectionPopup = false }
 
-                        // استدعاء ملف الـ ReflectionPopupView الذي أنشأناه
-                        // في ملف Mainpage.swift
                         ReflectionPopupView(
-                            // نرسل الـ gender كـ String "girl" أو "boy"
                             gender: (appState.selectedCharacter?.gender == .girl) ? "girl" : "boy",
                             isDark: isDarkMode,
                             onYesTap: {
@@ -156,28 +141,24 @@ struct Mainpage: View {
                                 withAnimation { showReflectionPopup = false }
                             }
                         )
-
                     }
                     .transition(.asymmetric(insertion: .scale, removal: .opacity))
                     .zIndex(10)
-                    // ✅ التيوتوريال
-                    if showTutorial {
-                        OnboardingTutorialView {
-                            withAnimation {
-                                showTutorial = false
-                                hasSeenTutorial = true
-                            }
+                }
+
+                if showTutorial {
+                    OnboardingTutorialView {
+                        withAnimation {
+                            showTutorial = false
+                            hasSeenTutorial = true
                         }
-                        .zIndex(20)
                     }
-// لضمان ظهوره فوق كل شيء
+                    .zIndex(20)
                 }
             }
-            // الربط البرمجي للانتقال لصفحة الجورنال
             .navigationDestination(isPresented: $goToJournalFromTimer) {
                 JournalView()
             }
-            
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     withAnimation(.easeIn(duration: 0.4)) {
@@ -193,7 +174,6 @@ struct Mainpage: View {
 
 #Preview {
     let appState = AppStateViewModel()
-    // تجربة البرفيو بشخصية بنت (ريناد)
     appState.selectedCharacter = Character(
         name: "Renad",
         imageName: "girlCard",
