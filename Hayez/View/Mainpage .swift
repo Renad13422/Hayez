@@ -168,6 +168,7 @@ struct Mainpage: View {
                     }
                 }
             }
+
         }
     }
 }
