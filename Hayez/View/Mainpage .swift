@@ -39,6 +39,8 @@ struct Mainpage: View {
                         .scaledToFill()
                         .animation(.easeInOut(duration: 0.6), value: isDarkMode)
                         .ignoresSafeArea()
+                        .blur(radius: showTutorial ? 10 : 0)
+                        .animation(.easeInOut(duration: 0.4), value: showTutorial)
 
                     GeometryReader { geo in
                         let w = geo.size.width

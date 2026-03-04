@@ -39,7 +39,7 @@ struct OnboardingTutorialView: View {
                         // الأيقونات
                         HStack(spacing: 24) {
                             TutorialItemView(imageName: "jornal", label: "Journal")
-                            TutorialItemView(imageName: "Lamp", label: "Lamp")
+                            TutorialItemView(imageName: "lamp", label: "Lamp")
                             TutorialItemView(imageName: "chicklist", label: "List")
                         }
 
@@ -55,7 +55,7 @@ struct OnboardingTutorialView: View {
                                 .foregroundColor(.white)
                             Text("Tap the window to switch\nto dark mode 🌙")
                                 .font(.custom("FingerPaint-Regular", size: 13))
-                                .foregroundColor(.white.opacity(0.9))
+                                .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
                         }
                         
